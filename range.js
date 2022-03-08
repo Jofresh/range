@@ -4,37 +4,26 @@ function range(...args) {
     if (stop === 0 && start > 0)
         [start, stop] = [stop, start]
 
-    return reverse ? reversedArray(start, stop, step) : invertArray(start, stop, step)
+    return createArray(start, stop, step, reverse)
 }
 
-function invertArray(start, stop, step) {
-    let length = size(start, stop, step)
+function createArray(start, stop, step, reverse) {
+    let length = getLength(start, stop, step)
     let arr = new Array(length)
+
+    let direction = reverse ? -1 : 1
+    if (reverse) [start, stop] = [stop, start]
 
     let i = 0;
     while (i < length) {
         arr[i++] = start
-        start += step
+        start = start + (direction * step)
     }
 
     return arr
 }
 
-function reversedArray(start, stop, step) {
-    let length = size(start, stop, step)
-    let arr = new Array(length)
-    
-    let i = 0
-    stop -= step
-    while (i < length) {
-        arr[i++] = stop
-        stop -= step
-    }
-
-    return arr
-}
-
-function size(start, stop, step) {
+function getLength(start, stop, step) {
     return Math.abs(Math.ceil((stop - start) / step))
 }
 
