@@ -1,12 +1,10 @@
 function range(...args) {
     let [start, stop = 0, step = 1, reverse] = args
-    
-    if (stop === 0 && start > 0) [start, stop] = [stop, start]
 
-    if (reverse)
-        return reversedArray(start, stop, step)
-    else
-        return invertArray(start, stop, step)
+    if (stop === 0 && start > 0)
+        [start, stop] = [stop, start]
+
+    return reverse ? reversedArray(start, stop, step) : invertArray(start, stop, step)
 }
 
 function invertArray(start, stop, step) {
@@ -37,7 +35,7 @@ function reversedArray(start, stop, step) {
 }
 
 function size(start, stop, step) {
-    return Math.ceil((stop - start) / step)
+    return Math.abs(Math.ceil((stop - start) / step))
 }
 
 module.exports = {
