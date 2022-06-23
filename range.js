@@ -1,3 +1,4 @@
+// Only works for digit
 function range(...args) {
     let [start, stop = 0, step = 1, reverse] = args
 
@@ -7,23 +8,22 @@ function range(...args) {
     return createArray(start, stop, step, reverse)
 }
 
-// Construit le tableau
 function createArray(start, stop, step, reverse) {
     let length = getLength(start, stop, step)
-    let arr = Array(length) // Créé un tableau de la taille calculée
+    let arr = Array(length)
     
-    // Si on veut le tableau inversé alors on commence par la fin, en allant de droite à gauche
+    // If we want a reversed array then we start from the end, from right to left
     let direction = 1                   // start = start + step 
     if (reverse) {
-        [start, stop] = [stop, start]   // On swap "start" et "stop"
-        start -= step                   // Si on ajoute pas cette ligne, (0,9,3,true) donne [9,6,3]
-        direction = -1                  // Permet de faire : stop = stop - step
+        [start, stop] = [stop, start]   // We swap `start` and `stop`
+        start -= step                   // If we don't add this line, range(0, 9, 3, true) returns [9, 6, 3]
+        direction = -1                  // Allows us to do, further : stop = stop - step
     }
 
     /*
-     * On pourrait aussi construire le tableau dans le bon sens puis
-     * appeler une fonction (reversedArray), dans laquelle on passerait en paramètre le tableau construit,
-     * qui nous renverrait le tableau inversé, pour se passer de la variable direction 
+     * We also could build the array and then call a function to reverse it
+     * so we don't have to use the variable `direction`
+     * Exemple : arr = reverseArray(arr)
      */
 
     let i = 0;
@@ -36,8 +36,7 @@ function createArray(start, stop, step, reverse) {
     return arr
 }
 
-/* 
- *  function reverseArray(arr) {
+/*  function reverseArray(arr) {
  *      let i = arr.length, j = 0
  *      let reversed = Array(arr.length)
  *      while (i > 0)
@@ -46,7 +45,6 @@ function createArray(start, stop, step, reverse) {
  *  }
  */
 
-// Calcule la taille du tableau
 function getLength(start, stop, step) {
     return Math.abs(Math.ceil((stop - start) / step))
 }
